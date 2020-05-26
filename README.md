@@ -1,2 +1,13 @@
-# sharpei
-Python tool to watch and sync a directory to S3
+# Sharpei
+
+Python watchdog to sync file changes to AWS S3
+
+Requires Python 3.5+
+
+## Usage
+
+#### CLI
+```bash
+# Monitor the current directory and send all files
+> sharpei . s3://bucket/key-prefix/
+```
