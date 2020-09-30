@@ -2,6 +2,7 @@ import glob
 from os import path
 from typing import Union
 import logging
+import mimetypes
 
 from watchdog import events
 import boto3
@@ -42,11 +43,16 @@ class SharpeiEventHandler(events.FileSystemEventHandler):
     def s3_upload(self, file_path: str):
         upload_key = self.base_key + self._relative_s3_filename(file_path)
         logger.info(f"Upload {file_path} to s3://{self.bucket}/{upload_key}")
+        extra_args = self.s3_args.copy()
+        mimetype, _ = mimetypes.guess_type(file_path)
+        if mimetype:
+            extra_args["ContentType"] = mimetype
+
         s3_client.upload_file(
             Filename=file_path,
             Bucket=self.bucket,
             Key=upload_key,
-            ExtraArgs=self.s3_args,
+            ExtraArgs=extra_args,
         )
 
     def on_any_event(self, event: events.FileSystemEvent):
