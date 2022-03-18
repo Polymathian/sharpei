@@ -1,6 +1,8 @@
 name: Push to Docker
 
-on: [workflow_dispatch]
+on:
+    release:
+        types: [published]
 
 jobs:
     docker-push:
@@ -28,4 +30,6 @@ jobs:
                   file: ./Dockerfile
                   platforms: linux/amd64,linux/arm64,linux/386
                   push: true
-                  tags: polymathian/sharpei:latest
+                  tags: |
+                      polymathian/sharpei:latest
+                      polymathian/sharpei:${{ github.event.release.tag_name }}
