@@ -1,3 +1,7 @@
+# Deprecation notice
+
+With options available from AWS such as [Mountpoint]([url](https://aws.amazon.com/s3/features/mountpoint/)) and [S3 Files]([url](https://aws.amazon.com/s3/features/files/)), this project is no longer as relevant as it was, and is archived as of April 2026.
+
 # Sharpei
 
 Python watchdog to sync file changes to AWS S3
